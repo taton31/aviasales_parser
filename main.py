@@ -13,7 +13,7 @@ bot = telebot.TeleBot(token)
 def send_message(message):
     telegram = get_notifier('telegram')
     try:
-        telegram.notify(token=token, chat_id=chatId, message=message)
+        # telegram.notify(token=token, chat_id=chatId, message=message)
         telegram.notify(token=token, chat_id=chatId2, message=message)
     except:
         print('Could not send message')
@@ -261,19 +261,22 @@ def req(date):
             return mina
 
 while True:
-    dates = ['2024-12-23', '2024-12-24', '2024-12-25', '2024-12-26', '2024-12-27', '2024-12-28', '2024-12-29']
-    dic = {}
-    for i in dates:
-        z = req(i)
-        if dic.get(i, 9999999) > z:
-            if dic.get(i, 9999999) != 9999999:
-                send_message(f'обновилась минимальная цена на {i}:{z}')
-            dic[i] = z
-        time.sleep(30)
+    try:
+        dates = ['2024-12-23', '2024-12-24', '2024-12-25', '2024-12-26', '2024-12-27', '2024-12-28', '2024-12-29']
+        dic = {}
+        for i in dates:
+            z = req(i)
+            if dic.get(i, 9999999) > z:
+                if dic.get(i, 9999999) != 9999999:
+                    send_message(f'обновилась минимальная цена на {i}:{z}')
+                dic[i] = z
+            time.sleep(30)
 
-    print(dic)
-    with open('res.txt', 'w') as f:
-        f.write(str(dic))
+        print(dic)
+        with open('res.txt', 'w') as f:
+            f.write(str(dic))
 
+    except Exception as e:
+        send_message(f'error')
     time.sleep(5*60)
     
