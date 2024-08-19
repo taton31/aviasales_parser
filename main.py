@@ -2,6 +2,7 @@ import requests
 import datetime
 import time
 import telebot
+import cloudscraper
 from notifiers import get_notifier
 
 token = '7062094367:AAGwm9ThvvtISXa7iTNYWN-cYyehh-Z7RHM'
@@ -23,12 +24,18 @@ def req(date):
         ct = datetime.datetime.now()
         return int(ct.timestamp())
 
-    session = requests.Session()
+    session = cloudscraper.create_scraper(
+        browser={
+            'browser': 'firefox',
+            'platform': 'windows',
+            'mobile': False
+        }
+    )
+    
+    # session = requests.Session()
 
     cookies = {
         'auid': 'bkhwMmbDISZINmhoeHItAg==',
-        '_sp_ses.dc27': '*',
-        'marker': 'google',
         'currency': 'RUB',
         'nuid': '78a9daaa-9164-4421-8f60-224839602e7b',
         '_gcl_au': '1.1.1920805983.1724064045',
@@ -38,18 +45,19 @@ def req(date):
         '_ym_uid': '1724064046473175310',
         '_ym_d': '1724064046',
         '_ym_isad': '2',
-        '_ym_visorc': 'b',
         'uncheck_hotel_cookie': 'true',
         '_clck': 'ojpt8q%7C2%7Cfog%7C0%7C1692',
         'uxs_uid': 'a5874860-5e17-11ef-b036-a5aae06eefbf',
-        '_dc_gtm_UA-1481416-4': '1',
-        '_clsk': '1fcxab8%7C1724064892740%7C3%7C0%7Cp.clarity.ms%2Fcollect',
+        '_clsk': '1fcxab8%7C1724064921277%7C4%7C0%7Cp.clarity.ms%2Fcollect',
         '_ga': 'GA1.2.547603777.1724064046',
-        '_ga_KD6Y7CZ85S': 'GS1.2.1724064046.1.1.1724064900.29.0.0',
-        '_ga_EVCZWTNN22': 'GS1.1.1724064045.1.1.1724064912.0.0.0',
-        '_ga_GCLPS5EN9Q': 'GS1.1.1724064046.1.1.1724064912.17.0.0',
-        'search_init_stamp': '1724064917286',
-        '_sp_id.dc27': 'dc29294f-9ccb-4274-b5d1-c41b6cc3b0d8.1724064043.1.1724064920..915ef53a-07fe-49c8-a748-410d8eaf0546..aa94bf0a-28bd-48f8-a998-6d4c40f1bc17.1724064043495.133',
+        '_ga_KD6Y7CZ85S': 'GS1.2.1724064046.1.1.1724064934.60.0.0',
+        '_ga_GCLPS5EN9Q': 'GS1.1.1724064046.1.1.1724064937.55.0.0',
+        '_ga_EVCZWTNN22': 'GS1.1.1724064045.1.1.1724065269.0.0.0',
+        '_sp_ses.dc27': '*',
+        'marker': '15468.gaasru8877gclidEAIaIQobChMI8p2di5uBiAMVuKWDBx22bDlTEAAYASAAEgLZNPD_BwEgclid',
+        'email': 'anton15456%40yandex.ru',
+        'search_init_stamp': '1724076385614',
+        '_sp_id.dc27': 'dc29294f-9ccb-4274-b5d1-c41b6cc3b0d8.1724064043.2.1724076389.1724064977.eae8f839-46e9-4b3b-b385-f999bab1d462.915ef53a-07fe-49c8-a748-410d8eaf0546.c93c3f2f-0ff4-4af3-ae3f-ac1a6dcd2e4f.1724075876844.66',
     }
 
     headers = {
@@ -58,7 +66,7 @@ def req(date):
         'authorization': '',
         'cache-control': 'no-cache',
         'content-type': 'application/json',
-        # 'cookie': 'auid=bkhwMmbDISZINmhoeHItAg==; _sp_ses.dc27=*; marker=google; currency=RUB; nuid=78a9daaa-9164-4421-8f60-224839602e7b; _gcl_au=1.1.1920805983.1724064045; _gid=GA1.2.1724581604.1724064046; tmr_lvid=828ea448193311091dd7bef35a5dcb39; tmr_lvidTS=1724064045758; _ym_uid=1724064046473175310; _ym_d=1724064046; _ym_isad=2; _ym_visorc=b; uncheck_hotel_cookie=true; _clck=ojpt8q%7C2%7Cfog%7C0%7C1692; uxs_uid=a5874860-5e17-11ef-b036-a5aae06eefbf; _dc_gtm_UA-1481416-4=1; _clsk=1fcxab8%7C1724064892740%7C3%7C0%7Cp.clarity.ms%2Fcollect; _ga=GA1.2.547603777.1724064046; _ga_KD6Y7CZ85S=GS1.2.1724064046.1.1.1724064900.29.0.0; _ga_EVCZWTNN22=GS1.1.1724064045.1.1.1724064912.0.0.0; _ga_GCLPS5EN9Q=GS1.1.1724064046.1.1.1724064912.17.0.0; search_init_stamp=1724064917286; _sp_id.dc27=dc29294f-9ccb-4274-b5d1-c41b6cc3b0d8.1724064043.1.1724064920..915ef53a-07fe-49c8-a748-410d8eaf0546..aa94bf0a-28bd-48f8-a998-6d4c40f1bc17.1724064043495.133',
+        # 'cookie': 'auid=bkhwMmbDISZINmhoeHItAg==; currency=RUB; nuid=78a9daaa-9164-4421-8f60-224839602e7b; _gcl_au=1.1.1920805983.1724064045; _gid=GA1.2.1724581604.1724064046; tmr_lvid=828ea448193311091dd7bef35a5dcb39; tmr_lvidTS=1724064045758; _ym_uid=1724064046473175310; _ym_d=1724064046; _ym_isad=2; uncheck_hotel_cookie=true; _clck=ojpt8q%7C2%7Cfog%7C0%7C1692; uxs_uid=a5874860-5e17-11ef-b036-a5aae06eefbf; _clsk=1fcxab8%7C1724064921277%7C4%7C0%7Cp.clarity.ms%2Fcollect; _ga=GA1.2.547603777.1724064046; _ga_KD6Y7CZ85S=GS1.2.1724064046.1.1.1724064934.60.0.0; _ga_GCLPS5EN9Q=GS1.1.1724064046.1.1.1724064937.55.0.0; _ga_EVCZWTNN22=GS1.1.1724064045.1.1.1724065269.0.0.0; _sp_ses.dc27=*; marker=15468.gaasru8877gclidEAIaIQobChMI8p2di5uBiAMVuKWDBx22bDlTEAAYASAAEgLZNPD_BwEgclid; email=anton15456%40yandex.ru; search_init_stamp=1724076385614; _sp_id.dc27=dc29294f-9ccb-4274-b5d1-c41b6cc3b0d8.1724064043.2.1724076389.1724064977.eae8f839-46e9-4b3b-b385-f999bab1d462.915ef53a-07fe-49c8-a748-410d8eaf0546.c93c3f2f-0ff4-4af3-ae3f-ac1a6dcd2e4f.1724075876844.66',
         'origin': 'https://www.aviasales.ru',
         'pragma': 'no-cache',
         'priority': 'u=1, i',
@@ -69,10 +77,10 @@ def req(date):
         'sec-fetch-dest': 'empty',
         'sec-fetch-mode': 'cors',
         'sec-fetch-site': 'same-site',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36',
-        'x-aws-waf-token': '3ae8a26c-1852-4620-99c9-fa3668aa7e08:DQoAYVBMcJISAQAA:CliMtRQJOsfQ6wjBuxIILn3P3FVzK9n1SXdStx2vMbthjlUPvahDD52FmhtWCujCLfUGuWuiRYnm4/UcVmiQmJLNOtw2uO0EK2ZcDgeEMDagduep3CMoJKFvse8m0zQ9gIgDa3RB3b0cQXwKfOGrV/ecL0Pm/bmc2jIlwlzHOIg2DsfX0oOgvaW7r5YxDI70iGvJPJd/dRqoqkdRUu7mQu2vWY+lGSTAZIA9kWWYeeoC+QJo0/GK0qGLSFccPb314ROZgIZ/DQ==',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36',
+        'x-aws-waf-token': '1af075f6-252e-477f-9706-2eac572178ca:CQoApFdjKN8VAAAA:N+N94W/YByFimA9W1X1UEZC+qHjOdov+vtYlLkwXWEbfeO1CwAo3y/Gdt2RKlYCuWYrINBIj4vept1me0A78/s+iZUsEr8qjLitERVFItF5aTmpH0UlrjH7bsfyYYJWfNomZkbik8uPCrydBvPpc8qPu069q189v7HDrsRWWLKFk4OIOOvQAGcPPYjgpnAiKXhLa2Bb04gqbhu1SEB1Az/SRwbxFMD0e5TaIfyd0vtQXuv2dVm2gJWkih17KVyd35v/ErsLLPQ==',
         'x-client-type': 'web',
-        'x-origin-cookie': 'auid=bkhwMmbDISZINmhoeHItAg==; _sp_ses.dc27=*; marker=google; currency=RUB; nuid=78a9daaa-9164-4421-8f60-224839602e7b; _awt=463612396843306624f936336e2365393667ab33632e3934-62f68623f5d9330557b33b623dc03e17; _gcl_au=1.1.1920805983.1724064045; _gid=GA1.2.1724581604.1724064046; tmr_lvid=828ea448193311091dd7bef35a5dcb39; tmr_lvidTS=1724064045758; _ym_uid=1724064046473175310; _ym_d=1724064046; _ym_isad=2; _ym_visorc=b; domain_sid=rxjqUesfZij85ADwtkWcG%3A1724064047093; uncheck_hotel_cookie=true; currency=rub; _clck=ojpt8q%7C2%7Cfog%7C0%7C1692; _yoid=de9b6f19-25f0-4dbd-9ee3-00a8e2af96e9; _yosid=d936e9bc-76b8-4bc9-9750-a607e777eed8; uxs_uid=a5874860-5e17-11ef-b036-a5aae06eefbf; _dc_gtm_UA-1481416-4=1; _clsk=1fcxab8%7C1724064892740%7C3%7C0%7Cp.clarity.ms%2Fcollect; tmr_detect=0%7C1724064893619; _ga=GA1.2.547603777.1724064046; _ga_KD6Y7CZ85S=GS1.2.1724064046.1.1.1724064900.29.0.0; aws-waf-token=3ae8a26c-1852-4620-99c9-fa3668aa7e08:DQoAYVBMcJISAQAA:CliMtRQJOsfQ6wjBuxIILn3P3FVzK9n1SXdStx2vMbthjlUPvahDD52FmhtWCujCLfUGuWuiRYnm4/UcVmiQmJLNOtw2uO0EK2ZcDgeEMDagduep3CMoJKFvse8m0zQ9gIgDa3RB3b0cQXwKfOGrV/ecL0Pm/bmc2jIlwlzHOIg2DsfX0oOgvaW7r5YxDI70iGvJPJd/dRqoqkdRUu7mQu2vWY+lGSTAZIA9kWWYeeoC+QJo0/GK0qGLSFccPb314ROZgIZ/DQ==; _ga_EVCZWTNN22=GS1.1.1724064045.1.1.1724064912.0.0.0; _ga_GCLPS5EN9Q=GS1.1.1724064046.1.1.1724064912.17.0.0; search_init_stamp=1724064917286; _sp_id.dc27=dc29294f-9ccb-4274-b5d1-c41b6cc3b0d8.1724064043.1.1724064919..915ef53a-07fe-49c8-a748-410d8eaf0546..aa94bf0a-28bd-48f8-a998-6d4c40f1bc17.1724064043495.132',
+        'x-origin-cookie': 'auid=bkhwMmbDISZINmhoeHItAg==; currency=RUB; nuid=78a9daaa-9164-4421-8f60-224839602e7b; _gcl_au=1.1.1920805983.1724064045; _gid=GA1.2.1724581604.1724064046; tmr_lvid=828ea448193311091dd7bef35a5dcb39; tmr_lvidTS=1724064045758; _ym_uid=1724064046473175310; _ym_d=1724064046; _ym_isad=2; domain_sid=rxjqUesfZij85ADwtkWcG%3A1724064047093; uncheck_hotel_cookie=true; currency=rub; _clck=ojpt8q%7C2%7Cfog%7C0%7C1692; _yoid=de9b6f19-25f0-4dbd-9ee3-00a8e2af96e9; _yosid=d936e9bc-76b8-4bc9-9750-a607e777eed8; uxs_uid=a5874860-5e17-11ef-b036-a5aae06eefbf; _clsk=1fcxab8%7C1724064921277%7C4%7C0%7Cp.clarity.ms%2Fcollect; tmr_detect=0%7C1724064923309; _ga=GA1.2.547603777.1724064046; _ga_KD6Y7CZ85S=GS1.2.1724064046.1.1.1724064934.60.0.0; _ga_GCLPS5EN9Q=GS1.1.1724064046.1.1.1724064937.55.0.0; _ga_EVCZWTNN22=GS1.1.1724064045.1.1.1724065269.0.0.0; _sp_ses.dc27=*; marker=15468.gaasru8877gclidEAIaIQobChMI8p2di5uBiAMVuKWDBx22bDlTEAAYASAAEgLZNPD_BwEgclid; _awt=2256b663f5370ef3324566da376605283313662468265976d563320867255f6c39b323b0-3e35e316; email=anton15456%40yandex.ru; email=anton15456%40yandex.ru; search_init_stamp=1724076385614; _sp_id.dc27=dc29294f-9ccb-4274-b5d1-c41b6cc3b0d8.1724064043.2.1724076389.1724064977.eae8f839-46e9-4b3b-b385-f999bab1d462.915ef53a-07fe-49c8-a748-410d8eaf0546.c93c3f2f-0ff4-4af3-ae3f-ac1a6dcd2e4f.1724075876844.66; aws-waf-token=1af075f6-252e-477f-9706-2eac572178ca:CQoApFdjKN8VAAAA:N+N94W/YByFimA9W1X1UEZC+qHjOdov+vtYlLkwXWEbfeO1CwAo3y/Gdt2RKlYCuWYrINBIj4vept1me0A78/s+iZUsEr8qjLitERVFItF5aTmpH0UlrjH7bsfyYYJWfNomZkbik8uPCrydBvPpc8qPu069q189v7HDrsRWWLKFk4OIOOvQAGcPPYjgpnAiKXhLa2Bb04gqbhu1SEB1Az/SRwbxFMD0e5TaIfyd0vtQXuv2dVm2gJWkih17KVyd35v/ErsLLPQ==',
     }
 
     json_data = {
@@ -102,7 +110,7 @@ def req(date):
             'assisted': True,
         },
         'market_code': 'ru',
-        'marker': 'google',
+        'marker': '15468.gaasru8877gclidEAIaIQobChMI8p2di5uBiAMVuKWDBx22bDlTEAAYASAAEgLZNPD_BwEgclid',
         'citizenship': 'RU',
         'currency_code': 'rub',
         'languages': {
@@ -130,7 +138,7 @@ def req(date):
                 'serp-exp-savedFilters': 'on',
                 'usc-exp-showSupportLinkNavbar': 'enabled',
                 'usc-exp-priceAlertSubscriptionOnExplore': 'treatment',
-                'serp-exp-aa2': 'off',
+                'serp-exp-aa2': 'on',
                 'avs-exp-comparisonWidget': 'on',
                 'avs-exp-directTicketsScheduleV3': 'on',
                 'usc-exp-faqSearch': 'off',
@@ -139,7 +147,7 @@ def req(date):
                 'asb-exp-additionalServicesOnContactForm': 'control',
                 'serp-exp-faresV2': 'on',
                 'asb-exp-smsPricing': 'off',
-                'serp-exp-hotelPreviewV2': 'on',
+                'serp-exp-hotelPreviewV2': 'off',
                 'guides-exp-newPinSizes': 'on',
                 'serp-exp-predictionSearch': 'on',
                 'usc-exp-menuSupportSection': 'on',
@@ -149,7 +157,7 @@ def req(date):
                 'serp-exp-aws-waf': 'active_with_async_loading_enabled_v2',
                 'asb-exp-migrateAssistedToSelene': 'enabled',
                 'usc-exp-marketChangeOfferWidget': 'on',
-                'avs-exp-aa': 'on',
+                'avs-exp-aa': 'off',
                 'ex-exp-newWebAutocomplete': 'iteration-1',
                 'serp-exp-hotelsTooltipMention': 'on',
                 'serp-exp-uxFeedback': 'on',
@@ -158,10 +166,10 @@ def req(date):
                 'usc-exp-emailSubscriptionForm': 'footer_form',
                 'usc-exp-ssrInstructions': 'on',
                 'prem-exp-newMarketsMain': 'off',
-                'ex-exp-directionScreenWithTickets': 'it4-poi-uber-psgr',
+                'ex-exp-directionScreenWithTickets': 'iteration-3-control',
                 'serp-exp-hotelsAutocomplete': 'on_new_backend',
                 'serp-exp-modalDirectFlights': 'off',
-                'asb-exp-servicesInFares': 'off',
+                'asb-exp-servicesInFares': 'on',
                 'serp-exp-sessionStartUxFeedback': 'on_desktop',
                 'serp-exp-ticketPreviewV3': 'on',
                 'ex-exp-mainCityVideo': 'several_videos',
@@ -169,14 +177,19 @@ def req(date):
             },
         },
         'brand': 'AS',
-        'search_source': 'search_form',
+        'premium': {
+            'tier': {
+                'id': 'basic',
+                'name': 'Basic User',
+            },
+        },
     }
 
     response = session.post('https://tickets-api.aviasales.ru/search/v2/start', cookies=cookies, headers=headers, json=json_data)
     try:
         search_id = response.json()['search_id']
     except:
-        print(response.text)
+        print(response)
         exit()
     print (search_id)
     # print (response.json()['search_id'])
